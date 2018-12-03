@@ -3,6 +3,7 @@ import pymysql
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@localhost/flask_study"
@@ -16,6 +17,8 @@ db = SQLAlchemy(app)
 3.密码
 4.注册时间
 """
+
+
 class User(db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)  # 编号
@@ -44,6 +47,8 @@ class User(db.Model):
 6.内容
 7.发布时间
 """
+
+
 class Article(db.Model):
     __tablename__ = "article"
     id = db.Column(db.Integer, primary_key=True)  # 编号
@@ -59,4 +64,11 @@ class Article(db.Model):
 
 
 if __name__ == "__main__":
-    db.create_all()
+    db.create_all()  # create tables
+    # user = User(  # create a record to test saving
+    #     name="root",
+    #     pwd=generate_password_hash("root"),
+    #     addtime=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # )
+    # db.session.add(user)
+    # db.session.commit()
