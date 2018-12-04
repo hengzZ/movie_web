@@ -36,7 +36,7 @@ def login():
         data = form.data
         session["user"] = data["name"]
         flash(u"登陆成功！", "ok")
-        return redirect("/art/list/")
+        return redirect("/art/list/1/")
     else:
         pass
     return render_template("login.html", title=u"登陆", form=form)  # 渲染模板
@@ -128,10 +128,21 @@ def art_del(id):
 
 
 # 文章列表
-@app.route("/art/list/", methods=["GET"])
+@app.route("/art/list/<int:page>/", methods=["GET"])
 @user_login_req
-def art_list():
-    return render_template("art_list.html", title=u"文章列表")
+def art_list(page=None):
+    if page is None:
+        page = 1
+    # 获取当前用户信息
+    user = User.query.filter_by(name=session["user"]).first()
+    # 数据查询并分页获取
+    page_data = Article.query.filter_by(
+        user_id=user.id
+    ).order_by(
+        Article.addtime.desc()
+    ).paginate(page=page, per_page=2)
+    cate = [(1, u"汽车"), (2, u"旅游"), (3, u"美食"), (4, u"其它")]
+    return render_template("art_list.html", title=u"文章列表", page_data=page_data, cate=cate)
 
 
 # 验证码
