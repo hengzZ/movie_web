@@ -1,7 +1,7 @@
 # coding:utf8
 from flask import session
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField, FileField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, FileField, TextAreaField, IntegerField
 from wtforms.validators import DataRequired, EqualTo, ValidationError
 from models import User, Article
 
@@ -201,3 +201,69 @@ class PublishForm(FlaskForm):
         article = Article.query.filter_by(title=title).count()
         if article > 0:
             raise ValidationError(u"标题已存在！")
+
+
+"""
+文章编辑表单
+"""
+
+
+class ArticleEditForm(FlaskForm):
+    id = IntegerField(
+        label=u"编号",
+        validators=[
+            DataRequired(u"编号不能为空！")
+        ],
+        description=u"编号"
+    )
+    title = StringField(
+        label=u"标题",
+        validators=[
+            DataRequired(u"标题不能为空！")
+        ],
+        description=u"标题",
+        render_kw={
+            "class": "form-control",
+            "placeholder": u"请输入标题！"
+        }
+    )
+    cate = SelectField(
+        label=u"分类",
+        validators=[
+            DataRequired(u"分类不能为空！")
+        ],
+        description=u"分类",
+        choices=[(1, u"汽车"), (2, u"旅游"), (3, u"美食"), (4, u"其它")],
+        default=4,
+        coerce=int,
+        render_kw={
+            "class": "form-control"
+        }
+    )
+    logo = FileField(
+        label=u"封面",
+        validators=[
+            DataRequired(u"封面不能为空")
+        ],
+        description=u"封面",
+        render_kw={
+            "class": "form-control-file"
+        }
+    )
+    content = TextAreaField(
+        label=u"内容",
+        validators=[
+            DataRequired(u"内容不能为空")
+        ],
+        description=u"内容",
+        render_kw={
+            "style": "height: 11em;",
+            "id": "content"
+        }
+    )
+    submit = SubmitField(
+        u"提交",
+        render_kw={
+            "class": "btn btn-primary"
+        }
+    )
