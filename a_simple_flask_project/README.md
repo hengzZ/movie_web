@@ -79,7 +79,43 @@ ue  # 百度 ueditor 富文本编辑器
 {% if 条件 %} ... {% endif %}
 ```
 
+7.注释
+```html
+{# 注释 #}
+```
+
+8.函数
+```html
+{% macro page(data,url) %}  # 定义
+{% endmacro %}
+```
+```html
+{% import "page.html" as pg %}  # 导入
+{{ pg.page(page_data,'art_list') }}  # 使用
+```
+
 
 ## 前端页面开发
 step 1. 前端框架选择 <br>
-**Bootstrap**: <http://getbootstrap.com/>
+**Bootstrap**: <http://getbootstrap.com/> <br>
+step 2. jQuery 插件库 <br>
+**jQuery**: <https://code.jquery.com/jquery-3.3.1.min.js> <br>
+step 3: UEditor (HTML 文本编辑器) <br>
+**UEditor**: <http://fex.baidu.com/ueditor/> <br>
+
+### UI三要素
+1. **html template** (html structure without FORM)
+2. **form** (for interaction)
+3. **view** (for Rendering, Get or Post)
+
+### 后端二要素
+1. **model** (for Table structure and DB Accessor )
+2. **form** (perform Data Validation)
+
+
+# 所用内容
+* bootstrap CSS 式样表使用 + jQuery 动态页面功能插件
+* flask 模板(html + jinja2)、视图（render_template）+ 路由（app.route,redirect,url_for,登陆装饰器）
+* wtforms 定义表单
+* 通过 sqlalchemy 访问 MySQL
+* 静态文件创建
