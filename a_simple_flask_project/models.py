@@ -3,7 +3,7 @@ import pymysql
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@localhost/flask_study"
@@ -35,6 +35,9 @@ class User(db.Model):
 
     def __repr__(self):
         return "<User %r>" % self.name
+
+    def check_pwd(self, pwd):
+        return check_password_hash(self.pwd, pwd)
 
 
 """
