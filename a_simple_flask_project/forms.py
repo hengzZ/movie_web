@@ -3,7 +3,7 @@ from flask import session
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField, FileField, TextAreaField
 from wtforms.validators import DataRequired, EqualTo, ValidationError
-from models import User
+from models import User, Article
 
 """
 登陆表单
@@ -146,7 +146,9 @@ class RegisterFrom(FlaskForm):
 class PublishForm(FlaskForm):
     title = StringField(
         label=u"标题",
-        validators=[],
+        validators=[
+            DataRequired(u"标题不能为空！")
+        ],
         description=u"标题",
         render_kw={
             "class": "form-control",
@@ -155,10 +157,12 @@ class PublishForm(FlaskForm):
     )
     cate = SelectField(
         label=u"分类",
-        validators=[],
+        validators=[
+            DataRequired(u"分类不能为空！")
+        ],
         description=u"分类",
-        choices=[(1, u"汽车"), (2, u"旅游"), (3, u"美食")],
-        default=1,
+        choices=[(1, u"汽车"), (2, u"旅游"), (3, u"美食"), (4, u"其它")],
+        default=4,
         coerce=int,
         render_kw={
             "class": "form-control"
@@ -166,7 +170,9 @@ class PublishForm(FlaskForm):
     )
     logo = FileField(
         label=u"封面",
-        validators=[],
+        validators=[
+            DataRequired(u"封面不能为空")
+        ],
         description=u"封面",
         render_kw={
             "class": "form-control-file"
@@ -174,7 +180,9 @@ class PublishForm(FlaskForm):
     )
     content = TextAreaField(
         label=u"内容",
-        validators=[],
+        validators=[
+            DataRequired(u"内容不能为空")
+        ],
         description=u"内容",
         render_kw={
             "style": "height: 11em;",
@@ -187,3 +195,9 @@ class PublishForm(FlaskForm):
             "class": "btn btn-primary"
         }
     )
+
+    def validate_title(self, field):
+        title = field.data
+        article = Article.query.filter_by(title=title).count()
+        if article > 0:
+            raise ValidationError(u"标题已存在！")
