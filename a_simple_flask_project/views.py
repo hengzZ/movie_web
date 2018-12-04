@@ -5,13 +5,16 @@
 import os
 from flask import Flask, render_template, redirect, flash, session, Response, url_for, request
 from forms import LoginForm, RegisterFrom, PublishForm
-from models import db, User
+from models import db, User, Article
 from werkzeug.security import generate_password_hash
 from datetime import datetime
 from functools import wraps
+from werkzeug.utils import secure_filename
+import uuid
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "111111"  # A secret key is required to use CSRF.
+app.config["UP"] = os.path.join(os.path.dirname(__file__), "static/uploads")
 
 
 # 登陆装饰器!!
@@ -69,11 +72,44 @@ def logout():
     return redirect("/login/")
 
 
+# 修改文件名称
+def change_name(name):
+    info = os.path.splitext(name)
+    # 文件名： 时间格式字符串+唯一字符串+后缀名
+    name = datetime.now().strftime("%Y%m%d%H%M%S") + str(uuid.uuid4().hex) + info[-1]
+    return name
+
+
 # 发布文章
 @app.route("/art/add/", methods=["GET", "POST"])
 @user_login_req
 def art_add():
     form = PublishForm()
+    if form.validate_on_submit():
+        data = form.data
+        # 上传LOGO
+        file = secure_filename(form.logo.data.filename)
+        logo = change_name(file)
+        if not os.path.exists(app.config["UP"]):
+            os.makedirs(app.config["UP"])
+        form.logo.data.save(app.config["UP"] + "/" + logo)
+        # 获取用户ID
+        user = User.query.filter_by(name=session["user"]).first()
+        user_id = user.id
+        # 保存数据
+        art = Article(
+            title=data["title"],
+            cate=data["cate"],
+            user_id=user_id,
+            logo=logo,
+            content=data["content"],
+            addtime=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        )
+        db.session.add(art)
+        db.session.commit()
+        flash(u"发布文章成功！", "ok")
+    else:
+        pass
     return render_template("art_add.html", title=u"发布文章", form=form)
 
 
