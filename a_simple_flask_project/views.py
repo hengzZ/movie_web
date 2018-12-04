@@ -4,7 +4,7 @@
 # sys.setdefaultencoding('utf8') # python3 默认为 unicode 编码
 import os
 from flask import Flask, render_template, redirect, flash, session, Response, url_for, request
-from forms import LoginForm, RegisterFrom, PublishForm
+from forms import LoginForm, RegisterFrom, PublishForm, ArticleEditForm
 from models import db, User, Article
 from werkzeug.security import generate_password_hash
 from datetime import datetime
@@ -92,6 +92,7 @@ def art_add():
         logo = change_name(file)
         if not os.path.exists(app.config["UP"]):
             os.makedirs(app.config["UP"])
+        # 保存文件
         form.logo.data.save(app.config["UP"] + "/" + logo)
         # 获取用户ID
         user = User.query.filter_by(name=session["user"]).first()
@@ -117,7 +118,29 @@ def art_add():
 @app.route("/art/edit/<int:id>/", methods=["GET", "POST"])
 @user_login_req
 def art_edit(id):
-    return render_template("art_edit.html")
+    art = Article.query.get_or_404(int(id))  # get data or redirect to 404
+    form = ArticleEditForm()
+    if request.method == "GET":
+        form.content.data = art.content  # 复杂内容动态赋值
+        form.cate.data = art.cate
+        form.logo.data = art.logo
+    if form.validate_on_submit():  # POST
+        data = form.data
+        # 上传LOGO
+        file = secure_filename(form.logo.data.filename)
+        logo = change_name(file)
+        if not os.path.exists(app.config["UP"]):
+            os.makedirs(app.config["UP"])
+        # 保存文件
+        form.logo.data.save(app.config["UP"] + "/" + logo)
+        art.logo = logo
+        art.title = data["title"]
+        art.cate = data["cate"]
+        art.content = data["content"]
+        db.session.add(art)
+        db.session.commit()
+        flash(u"编辑文章成功！", "ok")
+    return render_template("art_edit.html", title=u"编辑文章", form=form, art=art)
 
 
 # 删除文章
