@@ -19,6 +19,8 @@
 * 模板引擎 - Jinja2
 * 表单功能 - WTForms
 * 数据库交互 - SQLAlchemy + PyMySQL
+* CSS - 美化
+* JavaScript - 动态
 
 ## skills ##
 * 使用整型、浮点型、路径型、字符串型、正则表达式路由转换器
@@ -51,21 +53,21 @@
 * 日志管理
 
 ## 前后台项目目录分析 ##
-* manage.py (入口启动脚本)
+* manage.py (启动脚本)
 * app (项目APP)
-    * __init__.py
-    * models.py (数据模型文件)
+    * \_\_init__.py
+    * models.py (数据模型)
     * static (静态目录)
     * home/admin (前台/后台模块)
-        * __init__.py
-        * views.py (视图处理文件)
-        * forms.py (表单处理文件)
-    * templates (模板目录)
+        * \_\_init__.py
+        * views.py (视图)
+        * forms.py (表单)
+    * templates (HTML模板)
         * home/admin (前台/后台模板)
 
 ## 蓝图 ##
 * 什么是蓝图：
-    * 一个应用中或跨应用制作应用组件和支持通用的模式
+    * 一个应用中或跨应用制作应用组件和支持通用的模式 (home/admin 相当于两个 app)
 * 蓝图的作用：
     * -将不同的功能模块化
     * -构建大型应用
@@ -90,19 +92,24 @@
 
 ## 界面
 #### 组成
-* **导航栏** - nav (navigation)
-* **底部** - bottom
-* 内容- content
-    * **菜单** - menu
-    * 对应内容
+* **导航栏** - **nav** (navigation)
+* **底部** - **bottom**
+* 内容- *content*
+    * **菜单** - **menu**
+    * panel - 内容
 #### 布局
 ---------------------------------- <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(横向导航栏) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(横向导航栏) <br>
 ---------------------------------- <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(内容) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;菜单 | 对应内容 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（content） <br>
+&nbsp;menu(菜单) | panel(内容) <br>
 ---------------------------------- <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(底部导航栏及信息) <br>
 ---------------------------------- <br>
 
-## 
+## 开发
+#### 流程
+1. **models**
+2. **views + HTML tpl**
+3. **forms + 后台逻辑**
+#### 部署
