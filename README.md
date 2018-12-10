@@ -1,7 +1,7 @@
 # INTRODUCTION #
 
 ## 环境 ##
-* centos 7
+* Linux
 * python3
 * mysql
 * html5
@@ -15,8 +15,10 @@
 * tornado - 高效并发
 
 ## Flask 介绍 ##
-* WSGI (web server gateway interface) 工具 - werkzeug
+* WSGI (web server gateway interface) - werkzeug
 * 模板引擎 - Jinja2
+* 表单功能 - WTForms
+* 数据库交互 - SQLAlchemy + PyMySQL
 
 ## skills ##
 * 使用整型、浮点型、路径型、字符串型、正则表达式路由转换器
@@ -86,4 +88,21 @@
 * 管理员登录日志(adminlog)
 * 操作日志(oplog)
 
+## 界面
+#### 组成
+* **导航栏** - nav (navigation)
+* **底部** - bottom
+* 内容- content
+    * **菜单** - menu
+    * 对应内容
+#### 布局
+---------------------------------- <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(横向导航栏) <br>
+---------------------------------- <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(内容) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;菜单 | 对应内容 <br>
+---------------------------------- <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(底部导航栏及信息) <br>
+---------------------------------- <br>
 
+## 
