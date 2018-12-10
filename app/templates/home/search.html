@@ -1,0 +1,30 @@
+{% extends "home/home.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb" style="margin-top:6px;">
+            <li>与xxx有关的电影，共xxx部</li>
+        </ol>
+    </div>
+    <div class="col-md-12">
+        {% for v in range(1,6) %}
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" style="width:131px;height:83px;" data-src="holder.js/131x83" alt="标题x">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">标题x<a href="#" class="label label-primary pull-right"><span
+                        class="glyphicon glyphicon-play"></span>播放影片</a></h4>
+                影片简介: 该片讲述了...
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-md-12 text-center">
+        <!--翻页导航-->
+    </div>
+</div>
+{% endblock %}
