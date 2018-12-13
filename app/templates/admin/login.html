@@ -1,13 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>微电影管理系统</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" href="{{ url_for('static',filename='base/images/logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='fonts/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='ionicons/css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin/plugins/iCheck/square/blue.css') }}">
 </head>
-<body>
-<h1>login</h1>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href=""><b>微电影管理系统</b></a>
+    </div>
+    <div class="login-box-body">
+        <form method="POST" id="form-data">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="请输入用户名！">
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="请输入密码！">
+            </div>
+            <a class="btn btn-primary">登陆</a>
+        </form>
+    </div>
+</div>
+<script src="{{ url_for('static',filename='admin/plugins/jQuery/jQuery-2.2.0.min.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/plugins/iCheck/icheck.min.js') }}"></script>
 </body>
 </html>
