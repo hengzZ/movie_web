@@ -12,7 +12,9 @@
 {% block content %}
 <div class="row">
     <div class="col-md-8">
+        <!--电影播放窗口占位-->
         <div id="moviecontainer"></div>
+        <!--电影播放窗口占位-->
     </div>
     <div class="col-md-4" style="height:500px;">
         <div class="panel panel-info">
@@ -176,8 +178,8 @@
 	jwplayer("moviecontainer").setup({
 		flashplayer: "{{ url_for('static',filename='jwplayer/jwplayer.flash.swf') }}",
 		playlist: [{
-			file: "#",
-			title: "标题X"
+			file: "{{ url_for('static', filename='video/demo.mp4') }}",
+			title: "目标检测"
 		}],
 		modes: [{
 			type: "html5"
