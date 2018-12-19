@@ -1,0 +1,37 @@
+{% extends "admin/admin.html" %}
+
+{% block content %}
+<section class="content-header">
+    <h1>微电影管理系统</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 个人资料</a></li>
+        <li class="active">修改密码</li>
+    </ol>
+</section>
+<section class="content" id="showcontent">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">修改密码</h3>
+                </div>
+                <form role="form" method="post">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>旧密码</label>
+                            <input type="password" class="form-control" placeholder="请输入旧密码！">
+                        </div>
+                        <div class="form-group">
+                            <label>新密码</label>
+                            <input type="password" class="form-control" placeholder="请输入新密码！">
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a class="btn btn-success">修改</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
